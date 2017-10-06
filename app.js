@@ -18,8 +18,10 @@ $(document).ready(function() {
   var name = "";
   var destination = "";
   var frequency = "";
-  var nextArrival = "";
-  var minAway = "";
+  var firstTrain = "";
+  var minAway;
+  var nextArrival;
+  
 
   // click button changes what is stored in firebase
   $("#submit-btn").on("click", function(event) {
@@ -30,17 +32,43 @@ $(document).ready(function() {
     name = $("#trainName").val().trim();
     destination = $("#trainDest").val().trim();
     frequency = $("#trainFreq").val().trim();
-    // nextArrival = 
-    // minAway = 
+    firstTrain = $("#firstTrain").val().trim();
 
-    console.log("all: ", name, destination, frequency);
+    // test
+    // console.log("all: ", name, destination, frequency, firstTrain);
+    
+    // take var firstTrain and push it back 1 year (to be sure it occurs before current time)
+    var firstTrainConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
+    console.log(firstTrainConverted);
+
+    // current time
+    var currentTime = moment();
+    console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+
+    // difference between the times
+    var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
+    console.log("Difference in time: " + diffTime);
+
+    // Time apart = remainder
+    var tRemainder = diffTime % frequency;
+    console.log("Remainder: " + tRemainder);
+
+    // minutes until train
+    minAway = frequency - tRemainder;
+    console.log("Minutes Until Train: " + minAway);
+
+    // next train
+    nextArrival = moment().add(minAway, "minutes");
+    console.log("Next Train Arrival: " + moment(nextArrival).format("hh:mm"));
+
 
     var trainObj = {
     	name: name,
     	destination: destination,
-    	frequency: frequency
-    	// nextArrival
-    	// minAway
+    	frequency: frequency,
+    	firstTrain: firstTrain,
+    	minAway: minAway,
+    	// nextArrival: nextArrival
     }
 
     // change what is saved in firebase
