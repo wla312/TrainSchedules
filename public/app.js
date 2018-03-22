@@ -7,15 +7,14 @@
 // 5. Create a way to calculate the time away using difference between start and current time.
 //    Then take the difference and modulus by frequency. 
 
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDLFtLmNnSJaZpLDyGPG9CLlcHbr0CDAKw",
-    authDomain: "trainschedulesapp.firebaseapp.com",
-    databaseURL: "https://trainschedulesapp.firebaseio.com",
-    projectId: "trainschedulesapp",
-    storageBucket: "",
-    messagingSenderId: "610730353215"
-  };
+// Initialize Firebase (private keys, etc. in config.js, which is not tracked thanks to .gitignore)
+
+  var apiKey = config.apiKey;
+  var authDomain = config.authDomain;
+  var databaseURL = config.databaseURL;
+  var projectId = config.projectId;
+  var storageBucket = config.storageBucket;
+  var messagingSenderId = config.messagingSenderId;
 
   firebase.initializeApp(config);
 
